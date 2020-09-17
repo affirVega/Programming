@@ -1,5 +1,6 @@
 #include <iostream>
 
+using namespace std;
 int main() {
     int i1 = 3;
     int i2 = 3.14;
