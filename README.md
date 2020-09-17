@@ -1,1 +1,1 @@
-# university
+This is reposirory for university
