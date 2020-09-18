@@ -2,7 +2,7 @@
 
 using namespace std;
 
-// x(t) = x0 + v0t - (at*t)/2
+// x(t) = x0 + v0t - (at²)/2
 // Лучше всего использовать double для x0, v0 и t, 
 // потому что так можно будет указать более точные 
 // данные, чем float или int
@@ -17,7 +17,7 @@ int main() {
     cout << "Введите x₀, v₀ и t, разделённые пробелом" << endl;
     cin >> x0 >> v0 >> t;
 
-    double d = x0 - x(x0, v0, g, t);
-    d = d >= 0 ? d : -d;
+    double d = x0 - x(x0, v0, g, t); // дистанция
+	d = d >= 0 ? d : -d; // модуль d
     cout << d << endl;
 }

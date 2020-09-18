@@ -6,7 +6,6 @@ x0 = int(input('Введите x0: '))
 v0 = int(input('Введите v0: '))
 t = int(input('Введите t: '))
 
-d = x0 - x(x0, v0, g, t)
-d = abs(d)
+d = abs(x0 - x(x0, v0, g, t))
 print(d)
 
