@@ -1,0 +1,4 @@
+# Removing IDE-related files
+/.idea
+/cmake-build-debug
+CMakeLists.txt
