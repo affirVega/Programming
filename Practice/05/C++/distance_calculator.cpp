@@ -17,7 +17,7 @@ int main() {
     cout << "Введите x₀, v₀ и t, разделённые пробелом" << endl;
     cin >> x0 >> v0 >> t;
 
-    double d = x0 - x(x0, v0, g, t); // дистанция
-	d = d >= 0 ? d : -d; // модуль d
-    cout << d << endl;
+    double distance = x0 - x(x0, v0, g, t);
+	distance = abs(distance);
+    cout << distance << endl;
 }
