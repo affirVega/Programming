@@ -10,13 +10,13 @@ int main() {
 	bool win;
 
 	std::cout << "Это программа, где вам надо угадать число, загаданное компьютером от 0 до 100 включительно.\nВам даётся 5 попыток." << std::endl;
+	std::cout << "Введите целое число." << std::endl;
 	do{
 		want_to_play = false;
 		win = false;
 
 		n = rand() % 101;
 		for (int tries = 5; tries > 0; tries--) {
-			std::cout << "Введите целое число." << std::endl;
 			std::cin >> guess;
 
 			if (guess < n) {
