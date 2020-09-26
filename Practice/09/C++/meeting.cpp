@@ -2,26 +2,19 @@
 #include <sstream>
 #include <vector>
 
-// Без понятия особо, как эта штука работает
-// От Arafat Hasan из StackOverflow в ответ на вопрос TheCrazyProgrammer
-//std::vector<std::string> split(std::string s, std::string delimiter) {
-//    size_t pos_start{0},
-//           pos_end,
-//           delim_len{delimiter.length()};
-//    std::string token;
-//    std::vector<std::string> res;
-//
-//    while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
-//        token = s.substr(pos_start, pos_end - pos_start);
-//        pos_start = pos_end + delim_len;
-//        res.push_back(token);
-//    }
-//
-//    return res;
-//}
+const int MINUTES_IN_HOUR = 60;
 
 int main() {
-    std::string input;
-    std::cout << "" << std::endl;
-    getline(std::cin, input);
+    std::cout << "Введите 2 момента времени в формате \"ЧЧ:ММ\", каждое с новой строки." << std::endl;
+    int hour1, minutes1, hour2, minutes2;
+    char temp;
+    std::cin >> hour1 >> temp >> minutes1 >> hour2 >> temp >> minutes2;
+    minutes1 += hour1 * MINUTES_IN_HOUR;
+    minutes2 += hour2 * MINUTES_IN_HOUR;
+
+    if (std::abs(minutes1 - minutes2) <= 15) {
+        std::cout << "Встреча состоится!" << std::endl;
+    }  else {
+        std::cout << "Встреча не состоится!" << std::endl;
+    }
 }
