@@ -1,8 +1,8 @@
 # output files
-.out$
-.o$
-.log$
+*.out
+*.o
+*.log
 # Removing IDE-related files
-/.idea
-/cmake-build-debug
-CMakeLists.txt
+/.idea/
+/cmake-build-debug/
+/CMakeLists.txt
