@@ -1,23 +1,17 @@
-//
-// Created by affir on 9/24/20.
-//
 #include <iostream>
-#include <cmath>
 
 int main() {
-    double result{1};
+    std::cout << "Введите возводимое в степень число и целое число -- степень" << std::endl;
+    
     double a;
     int n;
-    std::cout << "Введите возводимое в степень число и целое число -- степень" << std::endl;
     std::cin >> a >> n;
 
-    bool negative_power = n < 0;
-    n = std::abs(n);
-
-    while (n-- > 0)
+    double result = 1;
+    for (int i = 0; i < n; i++)
         result *= a;
 
-    if (negative_power) {
+    if (n < 0) {
         result = 1 / result;
     }
 

@@ -1,43 +1,40 @@
 #include <iostream>
 
-using namespace std;
 int main() {
-    int a;
-    int b;
-	double c;
-	double d;
+    int    a, b;
+	double c, d;
 	
-    cout << "Введите два целых числа, разделённых пробелом или "
-            "новой строкой." << endl;
-    cin >> a >> b;
-    cout << "Введите два дробных числа, разделённых пробелом или "
-            "новой строкой, где дробная часть числа отделяется точкой." << endl;
-    cin >> c >> d;
+    std::cout << "Введите два целых числа, разделённых пробелом или "
+            "новой строкой." << std::endl;
+    std::cin >> a >> b;
+    std::cout << "Введите два дробных числа, разделённых пробелом или "
+            "новой строкой, где дробная часть числа отделяется точкой." << std::endl;
+    std::cin >> c >> d;
 
-	cout << "Справка: a и b -- целочисленные\n c и d -- дробные" << endl;
+	std::cout << "Справка: a и b -- целочисленные\n c и d -- дробные" << std::endl;
 
-    cout << "a + b = " << a + b << endl;
-    cout << "a - b = " << a - b << endl;
-    cout << "a * b = " << a * b << endl;
-    cout << "a / b = " << a / b << endl;
+    std::cout << "a + b = " << a + b << std::endl;
+    std::cout << "a - b = " << a - b << std::endl;
+    std::cout << "a * b = " << a * b << std::endl;
+    std::cout << "a / b = " << a / b << std::endl;
 
-	cout << endl;
-    cout << "c + d = " << c + d << endl;
-    cout << "c - d = " << c - d << endl;
-    cout << "c * d = " << c * d << endl;
-    cout << "c / d = " << c / d << endl;
+	std::cout << std::endl;
+    std::cout << "c + d = " << c + d << std::endl;
+    std::cout << "c - d = " << c - d << std::endl;
+    std::cout << "c * d = " << c * d << std::endl;
+    std::cout << "c / d = " << c / d << std::endl;
 
-	cout << endl;
-    cout << "c + b = " << c + b << endl;
-    cout << "c - b = " << c - b << endl;
-    cout << "c * b = " << c * b << endl;
-    cout << "c / b = " << c / b << endl;
+	std::cout << std::endl;
+    std::cout << "c + b = " << c + b << std::endl;
+    std::cout << "c - b = " << c - b << std::endl;
+    std::cout << "c * b = " << c * b << std::endl;
+    std::cout << "c / b = " << c / b << std::endl;
 
-	cout << endl;
-    cout << "a + d = " << a + d << endl;
-    cout << "a - d = " << a - d << endl;
-    cout << "a * d = " << a * d << endl;
-    cout << "a / d = " << a / d << endl;
+	std::cout << std::endl;
+    std::cout << "a + d = " << a + d << std::endl;
+    std::cout << "a - d = " << a - d << std::endl;
+    std::cout << "a * d = " << a * d << std::endl;
+    std::cout << "a / d = " << a / d << std::endl;
 
 	// С++ испольует целочисленное деление, если по обе стороны от 
 	// оператора деления целые числа.

@@ -1,17 +1,15 @@
 #include <iostream>
 
-using namespace std;
-
 int main() {
-    double f, s, result;      // первое, второе, результат
-    char op;                  // оператор +, -, *, или /
-    bool result_exists{true};
+    std::cout << "Через пробел введите вещественное число, затем оператор и вещественное число. "
+            "Пример: \"8 * 3\"." << std::endl;
 
-    cout << "Введите вещественное число, символ оператора и вещественное число, разделённые пробелами. "
-            "Пример: \"8 * 3\"." << endl;
+    double f, s;
+    char op;
+    std::cin >> f >> op >> s;
 
-    cin >> f >> op >> s;
-
+    double result;
+    bool result_exists = true;
     switch (op) {
         case '*':
             result = f * s;
@@ -24,19 +22,19 @@ int main() {
             break;
         case '/':
             if (s == 0) {
-                cout << "Ошибка: Деление на 0.";
+                std::cout << "Ошибка: Деление на 0.";
                 result_exists = false;
                 break;
             }
             result = f / s;
             break;
         default:
-            cout << "Ошибка: неизвестный оператор.";
+            std::cout << "Ошибка: неизвестный оператор.";
             result_exists = false;
             break;
     }
     if (result_exists) {
-        cout << result << endl;
+        std::cout << result << std::endl;
     }
 }
 

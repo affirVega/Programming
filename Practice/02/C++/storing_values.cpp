@@ -1,6 +1,5 @@
 #include <iostream>
 
-using namespace std;
 int main() {
     int i1 = 3;
     int i2 = 3.14;
@@ -8,14 +7,14 @@ int main() {
     double d1 = 3;
     double d2 = 3.14;
 
-    cout << "Значение i1: " << i1 << endl;
-    cout << "Значение i2: " << i2 << endl;
+    std::cout << "Значение i1: " << i1 << std::endl;
+    std::cout << "Значение i2: " << i2 << std::endl;
     // Тип int хранит целочисленное значение. 
 	// При попытке присвоить к int-овой переменной 
 	// дробное число, дробная его часть отбрасывается.
 	
-    cout << "Значение d1: " << d1 << endl;
-    cout << "Значение d2: " << d2 << endl;
+    std::cout << "Значение d1: " << d1 << std::endl;
+    std::cout << "Значение d2: " << d2 << std::endl;
     // Тип double и float хранят дробные числа. 
 	// Разница в том, что для double выделяется в 
 	// два раза больше байтов в ОЗУ, поэтому оно 

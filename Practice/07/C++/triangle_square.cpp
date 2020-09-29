@@ -1,48 +1,62 @@
 #include <iostream>
 #include <cmath>
 
-double length(double x1, double y1, double x2, double y2) {
-    return std::sqrt(std::pow(x1 - x2, 2) + std::pow(y1 - y2, 2));
-}
+struct Point {
+    double x;
+    double y;
+
+    double distance_to(Point other) {
+        return std::sqrt(std::pow(x - other.x, 2) + std::pow(y - other.y, 2));
+    }
+};
 
 int main() {
-    double a, b, c, p, S, x1, y1, x2, y2, x3, y3;
-    int choice;
-    bool is_failure;
+    
+    
     std::cout << "Это программа для высчитывания площади треугольника.\n"
                  "Введите цифру, чтобы указать, какой тип данных о треугольнике вы хотите указать.\n"
-                 "1. Координаты треугольника.\n"
-                 "2. Стороны треугольника." << std::endl;
-    do {
-        is_failure = false;
-        std::cin >> choice;
-        switch (choice) {
-            case 1:
-                std::cout << "Введите три пары вещественных чисел, разделённых пробелом. Первое число x, второе y."
-                          << std::endl;
-                std::cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+                 "1. Длины стороны треугольника.\n"
+                 "2. Координаты треугольника." << std::endl;
 
-                a = length(x1, y1, x2, y2);
-                b = length(x2, y2, x3, y3);
-                c = length(x3, y3, x1, y1);
-                break;
-            case 2:
-                std::cout << "Введите стороны треугольника." << std::endl;
-                std::cin >> a >> b >> c;
-                break;
-            default:
-                std::cout << "Ошибка во введённых данных. Попробуйте снова." << std::endl;
-                is_failure = true;
-                break;
-        }
-        if (a + b < c || a + c < b || c + b < a)
-            is_failure = true;
+    int choice;
+    std::cin >> choice;
 
-    } while (is_failure);
+    double a, b, c;
+    switch (choice) {
+        case 1:
+            std::cout << "Введите длины сторон треугольника, каждое с отдельной строки." << std::endl;
+            std::cin >> a >> b >> c;
 
-    p = (a + b + c) / 2;
-    S = sqrt(p * (p - a) * (p - b) * (p - c));
+            break;
+        case 2:
+            std::cout << "Введите три пары вещественных чисел, каждая пара с новой строки, \n"
+                "числа в паре разделены пробелом. Первое число x, второе y." << std::endl;
+            double x1, y1, x2, y2, x3, y3;
+            std::cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
 
-    std::cout << "S = " << S << std::endl;
+            // Почему-то компилятор ругается, если здесь не будет блока
+            {
+                Point p1 {x1, y1};
+                Point p2 {x2, y2};
+                Point p3 {x3, y3};
+
+                a = p1.distance_to(p2);
+                b = p1.distance_to(p3);
+                c = p2.distance_to(p3);
+            }
+
+            break;
+        default:
+            std::cout << "Ошибка: неизвестный способ ввода." << std::endl;
+            break;
+    }
+
+    if (a + b < c || a + c < b || c + b < a)
+        std::cout << "Ошибка: данный треугольник не может существовать на плоскости." << std::endl;
+    else {
+        double p = (a + b + c) / 2;
+        double S = sqrt(p * (p - a) * (p - b) * (p - c));
+
+        std::cout << "S = " << S << std::endl;
+    }
 }
-

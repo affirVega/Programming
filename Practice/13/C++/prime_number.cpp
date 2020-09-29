@@ -1,6 +1,4 @@
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 
 bool is_prime(int n) {
     if (n <= 3) 
@@ -23,10 +21,7 @@ int main() {
 	std::cout << "Введите целое положительное число" << std::endl;
 
 	uint number;
-	uint random;
 	std::cin >> number;
-
-	srand(time(NULL));
 
 	if (is_prime(number)) {
 		std::cout << "Простое" << std::endl;

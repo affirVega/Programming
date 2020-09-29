@@ -1,15 +1,16 @@
 #include <iostream>
 
 int main() {
-	
-	long long n;
-	int       x{0};
 	std::cout << "Введите целое число." << std::endl;
+
+	long long n;
 	std::cin >> n;
 
+	int x = 0;
 	if (n >= 1) {
 		x++;
 	}
+	
 	while (n > 1) {
 		n /= 2;
 		x++;

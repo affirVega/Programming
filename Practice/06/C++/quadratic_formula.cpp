@@ -1,51 +1,30 @@
 #include <iostream>
 #include <cmath>
 
-using namespace std;
-
-double get_double() {
-    double input;
-    while(true) {
-        cin >> input;
-        if (cin.fail()) {
-            cin.clear();
-            cin.ignore(32767, '\n');
-            continue;
-        }
-        cin.ignore(32767, '\n');
-        break;
-    }
-    return input;
-}
-
 int main() {
-    cout << "Введите 3 вещественных числа, разделённых пробелами или новыми строками." << endl;
-    double a = get_double();
-    double b = get_double();
-    double c = get_double();
+    std::cout << "Введите 3 вещественных числа, каждое в отдельной строке." << std::endl;
+    double a, b, c;
+	std::cin >> a >> b >> c;
 
 	if (a == 0) {
 		if (b == 0) {
-			cout << "Корней нет." << endl;
+			std::cout << "Корней нет." << std::endl;
 		} else {
-			cout << "x = " << -c / b << endl;
+			std::cout << "x = " << -c / b << std::endl;
 		}
 	} else {
 		double d = b * b - 4 * a * c;
 		if (d < 0)
-			cout << "Не найдено действительных корней." << endl;
+			std::cout << "Не найдено действительных корней." << std::endl;
 		else if (d == 0) {
-			cout << "x = " << -b / (2 * a) << endl;
+			std::cout << "x = " << -b / (2 * a) << std::endl;
 		} else {
-			double d_sqrt{sqrt(d)};
-			double x_one{
-					(-b + d_sqrt) / (2 * a)
-			};
-			double x_two{
-					(-b - d_sqrt) / (2 * a)
-			};
-			cout << "x1 = " << x_one << endl;
-			cout << "x2 = " << x_two << endl;
+			double d_sqrt{std::sqrt(d)};
+			double x_one = (-b + d_sqrt) / (2 * a);
+			double x_two = (-b - d_sqrt) / (2 * a);
+
+			std::cout << "x1 = " << x_one << std::endl;
+			std::cout << "x2 = " << x_two << std::endl;
 		}
 	}
 }

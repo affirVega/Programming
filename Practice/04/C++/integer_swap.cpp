@@ -1,26 +1,25 @@
 #include <iostream>
 
-using namespace std;
-
 int main() {
-    int a;
-    int b;
+    int a, b;
 
-    cout << "Введите два целых числа, разделённых пробелом или новой строкой." << endl;
-    cin >> a >> b;
+    std::cout << "Введите два целых числа, разделённых пробелом или новой строкой." << std::endl;
+    std::cin >> a >> b;
 
+    // Обмен без дополнительной переменной
     a = a - b;
     b = b + a;
     a = b - a;
 
-    cout << "Значение a = " << a << endl;
-    cout << "Значение b = " << b << endl;
+    std::cout << "Значение a = " << a << std::endl;
+    std::cout << "Значение b = " << b << std::endl;
 
+    // Обмен с дополнительной переменной
 	int temp;
 	temp = a;
 	a = b;
 	b = temp;
 
-    cout << "Значение a = " << a << endl;
-    cout << "Значение b = " << b << endl;
+    std::cout << "Значение a = " << a << std::endl;
+    std::cout << "Значение b = " << b << std::endl;
 }

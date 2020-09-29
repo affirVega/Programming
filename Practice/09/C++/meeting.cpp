@@ -1,18 +1,17 @@
 #include <iostream>
 #include <sstream>
-#include <vector>
 
 const int MINUTES_IN_HOUR = 60;
 
 int main() {
     std::cout << "Введите 2 момента времени в формате \"ЧЧ:ММ\", каждое с новой строки." << std::endl;
-    int hour1, minutes1, hour2, minutes2;
+    int h1, m1, h2, m2;
     char temp;
-    std::cin >> hour1 >> temp >> minutes1 >> hour2 >> temp >> minutes2;
-    minutes1 += hour1 * MINUTES_IN_HOUR;
-    minutes2 += hour2 * MINUTES_IN_HOUR;
+    std::cin >> h1 >> temp >> m1 >> h2 >> temp >> m2;
+    m1 += h1 * MINUTES_IN_HOUR;
+    m2 += h2 * MINUTES_IN_HOUR;
 
-    if (std::abs(minutes1 - minutes2) <= 15) {
+    if (std::abs(m1 - m2) <= 15) {
         std::cout << "Встреча состоится!" << std::endl;
     }  else {
         std::cout << "Встреча не состоится!" << std::endl;
