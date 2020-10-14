@@ -2,6 +2,10 @@
 #include <vector>
 #include <string_view>
 
+/*
+ * I'm definately gonna forget EVERYTHING about how this code works lol
+ * */
+
 typedef std::vector<std::string> strvec_t;
 
 const int NUM_OF_CHARS = (int)'z'-'a';
