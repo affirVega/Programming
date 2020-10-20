@@ -17,13 +17,19 @@ int main()
 		std::cin >> input.name >> input.price >> input.volume;
 
 		long long liters = (balance / input.price) * input.volume;
+
 		if (liters == 0)
 		    continue;
+
+		if (best.price == 0) {
+			best = input;
+			continue;
+		}
+
 		long long best_liters = (balance / best.price) * best.volume;
 
-		if (best.price == 0 || liters > best_liters) {
+		if (liters > best_liters)
 			best = input;
-		}
 	}
 
 	if (best.price == 0)
