@@ -34,12 +34,16 @@ const std::string maze[] = {
     "#######E############D######"
 };
 
+bool is_wall_or_bad_point(int x, int y) {
+	return x < 0 || x >= maze[0].length()
+	|| y < 0 || y >= std::size(maze)
+	|| maze[y][x] == '#';
+}
+
 void crawl_maze(visits_t& visited, exits_t& exits, int x, int y) {
 	
 	// if x and y are in bounds of array and are >= 0, skip
-	if (   x < 0 || x >= maze[0].length()
-		|| y < 0 || y >= std::size(maze)
-		|| maze[y][x] == '#') {
+	if (is_wall_or_bad_point(x, y)) {
 		return;
 	}
 
@@ -75,9 +79,7 @@ int main() {
 	std::cout << "Введите координаты x, y через пробел: ";
 	std::cin >> x >> y;
 
-	if (   x < 0 || x >= maze[0].length()
-		|| y < 0 || y >= std::size(maze)
-		|| maze[y][x] == '#') {
+	if (is_wall_or_bad_point(x, y) {
 		std::cout << "Неверные координаты" << std::endl;
 		return 0;
 	}

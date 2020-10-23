@@ -28,8 +28,11 @@ maze = [
 visited = []
 exits = []
 
+def is_wall_or_bad_point(x, y):
+    return y < 0 or x < 0 or x >= len(maze[0]) or y >= len(maze) or maze[y][x] == "#";
+
 def crawl_maze(x, y):
-    if y < 0 or x < 0 or x >= len(maze[0]) or y >= len(maze) or maze[y][x] == "#":
+    if is_wall_or_bad_point(x, y):
         return
 
     if (x, y) in visited:
@@ -37,7 +40,9 @@ def crawl_maze(x, y):
     
     visited.append( (x, y) )
         
-    if maze[y][x] != " " and not maze[y][x] in exits:
+    # if at point isn't ' ' nor wall, then it must be an exit
+    # add this exit, if it didn't exist
+    if maze[y][x] != " " and maze[y][x] not in exits:
         exits.append(maze[y][x])
 
     crawl_maze(x, y+1)
@@ -55,18 +60,15 @@ def print_maze():
         print(" {:3d} {}".format(index, line))
     print()
 
+
+
 # print_maze()
 x, y = map(int, input("Введите координаты x, y через пробел: ").split())
 crawl_maze(x, y)
 
-# exits.sort()
-# print("visited indicies:", visited)
-
-if y < 0 or x < 0 or x >= len(maze[0]) or y >= len(maze) or maze[y][x] == "#":
+if is_wall_or_bad_point(x, y):
     print("Неверные координаты")
 else:
     for exit in exits:
         print(exit, end=' ')
     print()
-# visited.clear()
-# exits.clear()
