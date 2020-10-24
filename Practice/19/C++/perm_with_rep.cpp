@@ -2,17 +2,18 @@
 #include <map>
 #include <iterator>
 
-void print_permutations(std::map<char, int> *usages, 
-						std::string str, 
-                        char result[], 
+void print_permutations(std::map<char, int>& usages, 
+						std::string& str, 
+                        char (&result)[],
 						int last, 
 						int index, 
-						int repetition_left) {
+						int repetition_left)
+{
         int length = str.length();
         
         std::map<char, int>::iterator itr;
         
-        for (itr = usages->begin(); itr != usages->end(); ++itr) {
+        for (itr = usages.begin(); itr != usages.end(); ++itr) {
                 if (itr->second > repetition_left)
                         continue;
                 result[index] = itr->first;
@@ -48,7 +49,7 @@ void start(int n, std::string str) {
                 );
         }
         
-        print_permutations(&usages, str, result, n-1, 0, n - str.length());
+        print_permutations(usages, str, result, n-1, 0, n - str.length());
 		std::cout << std::endl;
 }
 
