@@ -3,11 +3,11 @@
 #include <iterator>
 
 void print_permutations(std::map<char, int>& usages, 
-						std::string& str, 
+			std::string& str, 
                         char (&result)[],
-						int last, 
-						int index, 
-						int repetition_left)
+			int last, 
+			int index, 
+			int repetition_left)
 {
         int length = str.length();
         
@@ -24,7 +24,7 @@ void print_permutations(std::map<char, int>& usages,
                 else {
                         int is_repeated = itr->second > 1;
                         print_permutations(usages, str, result, last, 
-								index + 1, repetition_left - is_repeated);
+					   index + 1, repetition_left - is_repeated);
                 }
                 itr->second--;
         }
