@@ -4,7 +4,7 @@
 
 void print_permutations(std::map<char, int>& usages, 
 			std::string& str, 
-			char (&result)[],
+			char *result,
 			int last, 
 			int index, 
 			int repetition_left)
@@ -40,7 +40,7 @@ void start(int n, std::string str) {
                 return;
         }
 
-        char result[n];
+        char *result_heap = new char[n];
         
         std::map<char, int> usages;
         for (char ch : str) {
@@ -49,8 +49,10 @@ void start(int n, std::string str) {
                 );
         }
         
-        print_permutations(usages, str, result, n-1, 0, n - str.length());
+        print_permutations(usages, str, result_heap, n-1, 0, n - str.length());
 		std::cout << std::endl;
+		
+		delete[] result_heap;
 }
 
 int main() {
