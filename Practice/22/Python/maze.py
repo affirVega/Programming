@@ -40,8 +40,6 @@ def crawl_maze(x, y):
     
     visited.append( (x, y) )
         
-    # if at point isn't ' ' nor wall, then it must be an exit
-    # add this exit, if it didn't exist
     if maze[y][x] != " " and maze[y][x] not in exits:
         exits.append(maze[y][x])
 
@@ -60,9 +58,8 @@ def print_maze():
         print(" {:3d} {}".format(index, line))
     print()
 
-
-
 # print_maze()
+
 x, y = map(int, input("Введите координаты x, y через пробел: ").split())
 crawl_maze(x, y)
 

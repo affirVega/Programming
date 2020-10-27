@@ -4,7 +4,7 @@
 
 void print_permutations(std::map<char, int>& usages, 
 			std::string& str, 
-                        char (&result)[],
+			char (&result)[],
 			int last, 
 			int index, 
 			int repetition_left)
