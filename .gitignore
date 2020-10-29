@@ -2,6 +2,7 @@
 *.out
 *.o
 *.log
+*.exe
 # Removing IDE-related files
 .idea/
 cmake-build-debug/

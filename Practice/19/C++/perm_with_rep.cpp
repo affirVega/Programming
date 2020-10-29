@@ -2,27 +2,26 @@
 #include <map>
 #include <iterator>
 
-void print_permutations(
-			std::map<char, int>& usages, 
-			std::string& str, 
+void print_permutations(std::map<char, int>& usages, 
+			std::string& str,
 			char *result,
-			int last, 
-			int index, 
+			int last,
+			int index,
 			int repetition_left) {
 
         for (auto itr = usages.begin();
-			itr != usages.end();
-			++itr) {
+	     itr != usages.end(); ++itr) {
 
-                if (itr->second > repetition_left)
+                if (itr->second - 1 > repetition_left) {
                         continue;
+                }
 
                 result[index] = itr->first;
                 itr->second++;
                 
                 if (last == index) {
                         std::cout << result << " ";
-				} else {
+		} else {
                         int is_repeated = itr->second > 1;
                         print_permutations(usages, str, result, last, 
 					        index + 1, repetition_left - is_repeated);
@@ -52,9 +51,8 @@ void start(int n, std::string str) {
         print_permutations(usages, str, result_heap, n-1, 0,
 				n - str.length());
 
-		std::cout << std::endl;
-		
-		delete[] result_heap;
+	std::cout << std::endl;
+	delete[] result_heap;
 }
 
 int main() {
