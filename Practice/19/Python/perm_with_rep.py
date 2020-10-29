@@ -1,7 +1,7 @@
 def print_permutations(usages, string, result, last, index, repetition_left):
     
     for k in usages:
-        if (usages[k] > repetition_left):
+        if (usages[k] - 1 > repetition_left):
             continue
         result[index] = k
         usages[k] += 1
