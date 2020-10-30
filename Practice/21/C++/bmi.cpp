@@ -22,5 +22,5 @@ int main() {
 	std::cout << "Введите свой вес и рост через пробел: ";
 	std::cin >> weight >> height;
 
-	printBMI(BMI(weight, height));
+	printBMI(BMI(weight, height/100.0));
 }

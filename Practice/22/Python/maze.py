@@ -66,6 +66,9 @@ crawl_maze(x, y)
 if is_wall_or_bad_point(x, y):
     print("Неверные координаты")
 else:
-    for exit in exits:
-        print(exit, end=' ')
-    print()
+    if (len(exits) == 0):
+        print("Выходов нет")
+    else:
+        for exit in exits:
+            print(exit, end=' ')
+        print()

@@ -13,4 +13,4 @@ def print_bmi(bmi: float) -> float:
 
 weight, height = map(float, input("Введите вес и рост через пробел: ").split(" "))
 print(weight, height)
-print_bmi(bmi(weight, height))
+print_bmi(bmi(weight, height/100))

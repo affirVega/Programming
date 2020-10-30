@@ -72,13 +72,17 @@ int main() {
 	std::cout << "Введите координаты x, y через пробел: ";
 	std::cin >> x >> y;
 
-	if (is_wall_or_bad_point(x, y) {
+	if (is_wall_or_bad_point(x, y)) {
 		std::cout << "Неверные координаты" << std::endl;
 	} else {
 		crawl_maze(visited, exits, x, y);
 
-		for (char e : exits) {
-			std::cout << e << " ";
+		if (exits.size() != 0) {
+			for (char e : exits) {
+				std::cout << e << " ";
+			}
+		} else {
+			std::cout << "Выходов нет";
 		}   std::cout << std::endl;
 	}
 
