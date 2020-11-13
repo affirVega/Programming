@@ -3,9 +3,37 @@
 #include <iomanip>
 
 #include "nlohmann/json.hpp"
-
-// for convenience
 using json = nlohmann::json;
+
+json* find_by_user_id(json &container, int userId) {
+	json temp;
+	json *user = &temp;
+
+	std::string field = "userId";
+
+	for (auto& element : container) {
+		if (element[field] == userId) {
+			user = &element;
+			break;
+		}
+	}
+
+	return user;
+}
+
+json* create_if_empty(json &container, json *object, int userId) {
+	if (object->empty()) {
+		container.push_back({
+			{"userId", userId},
+			{"task_completed", 0}
+		});
+		
+		// make `object` point to created object in container
+		object = &*--container.end();
+	}
+
+	return object;
+}
 
 int main() {
 	std::ifstream input("in.json");
@@ -16,33 +44,15 @@ int main() {
 
 	json joutput;
 	for (auto& element : jinput) {
-		int userId = element["userId"];
+		int  userId    = element["userId"];
 		bool completed = element["completed"];
 
-		json temp;
-		json *user = &temp;
-
-		// search for user with userId of `element`
-		for (auto& out_element : joutput) {
-			if (out_element["userId"] == userId) {
-				user = &out_element;
-				break;
-			}
-		}
-
-		// if user wasn't found
-		if (user->empty()) {
-			joutput.push_back({
-				{"userId", userId},
-				{"current_tasks", 0}
-			});
-			
-			// make `user` point to created object in joutput
-			user = &(*(--joutput.end()));
-		}
+		json &user = *create_if_empty(joutput,
+									  find_by_user_id(joutput, userId),
+									  userId);
 
 		if (completed) {
-			(*user)["current_tasks"] = static_cast<int>((*user)["current_tasks"]) + 1;
+			user["task_completed"] = static_cast<int>(user["task_completed"]) + 1;
 		}
 	}
 
