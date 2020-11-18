@@ -19,7 +19,7 @@ std::string longitude = "33.9744444444";
 std::string exclude   = "current,minutely,daily,alerts";
 std::string lang      = "ru";
 std::string units     = "metric";
-std::string appid     = "4b4b143c5f50ea5d5810563a8346acc0";
+std::string appid     = "4b4b9867687dg6sd876d87sa6d8a7s78";
 
 // https://thispointer.com/find-and-replace-all-occurrences-of-a-sub-string-in-c/
 void findAndReplaceAll(std::string & data, std::string toSearch, std::string replaceStr)
