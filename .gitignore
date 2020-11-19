@@ -3,6 +3,8 @@
 *.o
 *.log
 *.exe
+*.json
+**/build
 # Removing IDE-related files
 .idea/
 cmake-build-debug/
