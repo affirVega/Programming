@@ -1,4 +1,6 @@
 #include <fstream>
+#include <ctime>
+#include <iomanip>
 
 void log_append_line(std::string line) {
 	std::ofstream log("server.log", std::ofstream::app);

@@ -1,18 +1,19 @@
 #include <fstream>
-#include "yhirose/httplib.h"
-#include "nlohmann/json.hpp"
-#include "headers/logger.hpp"
+#include "include/cpp-httplib/httplib.h"
+#include "include/nlohmann/json.hpp"
 using json = nlohmann::json;
 using namespace httplib;
 
 // TODO: Load from `config.json` file.
-Client cli("http://api.openweathermap.org");
-std::string latitude = "45.0522222222";
+Client owm("http://api.openweathermap.org");
+std::string latitude  = "45.0522222222";
 std::string longitude = "33.9744444444";
-std::string exclude = "current,minutely,daily,alerts";
-std::string lang = "ru";
-std::string units = "metric";
-std::string appid = "4b4b143c5f50ea5d5810563a8346acc0";
+std::string exclude   = "current,minutely,daily,alerts";
+std::string lang      = "ru";
+std::string units     = "metric";
+std::string appid     = "4b4b143c5f50ea5d5810563a8346acc0";
+
+Client time_srv("http://worldtimeapi.org");
 
 // https://thispointer.com/find-and-replace-all-occurrences-of-a-sub-string-in-c/
 void findAndReplaceAll(std::string &data, std::string toSearch, std::string replaceStr) {
@@ -24,33 +25,26 @@ void findAndReplaceAll(std::string &data, std::string toSearch, std::string repl
 }
 
 json get_json() {
-	log_append_line("[Info] Entered get_json");
     std::string request = "/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude +
         "&exclude=" + exclude + "&appid=" + appid + "&units=" + units + "&lang=" + lang;
     
-	auto result = cli.Get(request.c_str());
+	auto result = owm.Get(request.c_str());
 	
 	if (!result) {
-		log_append_line("[Err] Request wasn't successful");
-		
-        return json::object();
+		return {"err", "Request to weather server wasn't successful"};
 	}
 	
 	int status_code = result->status;
 
     if (status_code < 200 || status_code >= 300) {
-		log_append_line("[Err] Got non-successful code " + std::to_string(status_code) + ".");
-		
-        return json::object();
+		return {"err", "Got non-successful code " + std::to_string(status_code) + "."};
 	}
 	findAndReplaceAll(result->body, "\\\"", "\"");
 	
-	log_append_line("[Info] Left get_json");
 	return json::parse(result->body);
 }
 
 json get_cache() {
-	log_append_line("[Info] Entered get_cache");
 	json cache;
 	std::ifstream cache_file("cache.json");
     if (cache_file.is_open()) {
@@ -62,33 +56,56 @@ json get_cache() {
 		}
 		cache_file.close();
     } else {
-		log_append_line("[Error] Could not open `cache.json` to read cache.");
+		return {"err", "Could not open `cache.json` to read cache."};
 	}
-	log_append_line("[Info] Left get_cache");
 	return cache;
 }
 
-void cache_json(json j) {
-	log_append_line("[Info] Entered cache_json");
+bool cache_json(json j) {
 	std::ofstream cache_file("cache.json");
 	if (cache_file.is_open()) {
 		cache_file << j;
 		cache_file.close();
 	} else {
-		log_append_line("[Error] Could not open `cache.json` to write cache.");
+		return false;
 	}
-	log_append_line("[Info] Left cache_json");
+    return true;
+}
+
+json get_time() {
+    std::string request = "/api/timezone/Europe/Simferopol";
+    
+	auto result = time_srv.Get(request.c_str());
+	
+	if (!result) {
+		return {"err", "Request to time server wasn't successful"};
+		
+        return json::object();
+	}
+	
+	int status_code = result->status;
+
+    if (status_code < 200 || status_code >= 300) {
+        return {"err", "Got non-successful code " + std::to_string(status_code) + "."};
+	}
+	findAndReplaceAll(result->body, "\\\"", "\"");
+	
+	return json::parse(result->body);
 }
 
 json get_hour_forecast(const json &hourly) {
-	log_append_line("[Info] Entered get_hour_forecast");
 	json hour_forecast;
 	
     int last = hourly.size() - 1;
-    int current_time = std::time(0);
+    int current_time;
+    json time_j = get_time();
+    if (time_j["err"].is_null()) {
+        current_time = time_j["unixtime"];
+    } else {
+        current_time = std::time(0); // in case of fail, use system time.
+    }
 	
     if (hourly[last]["dt"] < current_time) {
-		log_append_line("[Info] Cache got old.");
         return json::object();
     }
 	
@@ -98,6 +115,5 @@ json get_hour_forecast(const json &hourly) {
             break;
         }
     }
-	log_append_line("[Info] Left get_hour_forecast");
     return hour_forecast;
 }

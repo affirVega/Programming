@@ -4,18 +4,16 @@
 #include <string>
 #include <ctime>
 
-#include "yhirose/httplib.h"
-#include "nlohmann/json.hpp"
-#include "headers/logger.hpp"
-#include "headers/utils.hpp"
+#include "include/cpp-httplib/httplib.h"
+#include "include/nlohmann/json.hpp"
+#include "include/logger.hpp"
+#include "include/utils.hpp"
 
 using json = nlohmann::json;
 using namespace httplib;
 
-
 void gen_response_test(const Request &req, Response &res) {
     res.set_content("Test successful!", "text/plain");
-    log_append_line("[Info] Test request processed successfully.");
 }
 
 void gen_response(const Request &req, Response &res) {
@@ -27,26 +25,25 @@ void gen_response(const Request &req, Response &res) {
         body = get_cache();
         if (body.empty()) {
             body = get_json();
-            if (body.empty()) {
-                res.set_content("Error! Could not get data from api.openweathermap.com", "text/plain");
+            if (!body["err"].is_null()) {
+                res.set_content(body["err"], "text/plain");
                 return;
             }
+			cache_json(body);
+        } else if (!body["err"].is_null()) {
+            res.set_content(body, "text/json");
         }
         
-        //log_append_line(body.dump(2));
-        
         hour_forecast = get_hour_forecast(body["hourly"]);
-        if (hour_forecast.empty()) {
+        if (!hour_forecast["err"].is_null()) {
             if (retry) {
-                res.set_content("Error! Could not get data from api.openweathermap.com", "text/plain");
+                res.set_content(hour_forecast["err"], "text/plain");
                 return;
             }
         }
     } while (retry);
     
-    cache_json(body);
 
-    log_append_line("[Info] Starting to work with template.");
     std::string template_file_name = "template.html";
     std::ifstream template_file(template_file_name);
     std::string site;
@@ -55,14 +52,16 @@ void gen_response(const Request &req, Response &res) {
         getline(template_file, site, '\0');
         template_file.close();
     } else {
-        log_append_line("[Err] Could not open `template.html` file.");
         res.set_content("Error! Could not open `template.html` file.", "text/plain");
         return;
     }
 
-    findAndReplaceAll(site, "{hourly[i].weather[0].description}", hour_forecast["weather"][0]["description"]);
-    findAndReplaceAll(site, "{hourly[i].weather[0].icon}", hour_forecast["weather"][0]["icon"]);
-    findAndReplaceAll(site, "{hourly[i].temp}", std::to_string(int(std::round(hour_forecast["temp"].get<double>()))));
+    findAndReplaceAll(site, "{hourly[i].weather[0].description}", 
+			hour_forecast["weather"][0]["description"]);
+    findAndReplaceAll(site, "{hourly[i].weather[0].icon}", 
+			hour_forecast["weather"][0]["icon"]);
+    findAndReplaceAll(site, "{hourly[i].temp}", 
+			std::to_string(int(std::round(hour_forecast["temp"].get<double>()))));
 
     res.set_content(site, "text/html");
 }
@@ -73,19 +72,21 @@ void gen_response_raw(const Request &req, Response &res) {
     
     bool retry = false;
     do {
-        json body = get_cache();
+        body = get_cache();
         if (body.empty()) {
             body = get_json();
-            if (body.empty()) {
-                res.set_content("{\"error\":\"Couldn't get data from api.openweathermap.com\"}", "text/json");
+            if (!body["err"].is_null()) {
+                res.set_content(body, "text/json");
                 return;
             }
+        } else if (!body["err"].is_null()) {
+            res.set_content(body, "text/json");
         }
-
+        
         hour_forecast = get_hour_forecast(body["hourly"]);
-        if (hour_forecast.empty()) {
+        if (!hour_forecast["err"].is_null()) {
             if (retry) {
-                res.set_content("{\"error\":\"Couldn't get data from api.openweathermap.com\"}", "text/json");
+                res.set_content(hour_forecast["err"], "text/plain");
                 return;
             }
         }
@@ -101,8 +102,7 @@ void gen_response_raw(const Request &req, Response &res) {
         getline(template_file, site, '\0');
         template_file.close();
     } else {
-        log_append_line("[Err] Could not open `template.html` file.");
-        res.set_content("{\"error\":\"Could not open `template.html` file\"}", "text/json");
+        res.set_content("{\"err\":\"Could not open `template.html` file\"}", "text/json");
         return;
     }
 
@@ -119,6 +119,5 @@ int main() {
     svr.Get("/raw", gen_response_raw);
     svr.Get("/test", gen_response_test);
 
-    log_append_line("[Info] Server starting...");
     svr.listen("localhost", 3000);
 }
