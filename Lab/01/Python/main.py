@@ -8,7 +8,7 @@ def reload_data(event=None):
 		forecast_j = json.loads(response)
 
 		desc.config(text=str(forecast_j["description"]))
-		temp.config(text=str(forecast_j["temp"]) + "°C")
+		temp.config(text=str(round(forecast_j["temp"])) + "°C")
 	except requests.exceptions.ConnectionError:
 		pass
 
@@ -16,6 +16,7 @@ root = Tk()
 root.title("Погода")
 root.pack_propagate(0)
 root.bind("<Button-1>", reload_data)
+root.geometry("200x250")
 
 _yellow = "#ffb84d"
 _white = "#ffffff"
@@ -32,7 +33,7 @@ bottom_frame.pack(side=BOTTOM, fill=X)
 
 city = Label(top_frame, font=("Calibri Bold", 12), text="Симферополь", bg=_yellow)
 desc = Label(top_frame, font=("Calibri", 12), bg=_yellow)
-temp = Label(middle_frame, font=("Impact", 48), bg=_white)
+temp = Label(middle_frame, font=("Liberation Sans Bold", 48), bg=_white)
 
 city.pack(pady=0)
 desc.pack(pady=0)

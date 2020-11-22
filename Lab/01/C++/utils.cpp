@@ -39,7 +39,7 @@ json get_json() {
     if (status_code < 200 || status_code >= 300) {
 		return {"err", "Got non-successful code " + std::to_string(status_code) + "."};
 	}
-	findAndReplaceAll(result->body, "\\\"", "\"");
+	//findAndReplaceAll(result->body, "\\\"", "\"");
 	
 	return json::parse(result->body);
 }
@@ -88,7 +88,7 @@ json get_time() {
     if (status_code < 200 || status_code >= 300) {
         return {"err", "Got non-successful code " + std::to_string(status_code) + "."};
 	}
-	findAndReplaceAll(result->body, "\\\"", "\"");
+	//findAndReplaceAll(result->body, "\\\"", "\"");
 	
 	return json::parse(result->body);
 }
