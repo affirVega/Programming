@@ -20,11 +20,12 @@ void print_vector(vector_t array)
 
 void print_matrix(matrix_t array)
 {
-    std::cout << '[' << std::endl;
+    std::cout << '[' << '\n';
     for (vector_t row : array)
     {
         std::cout << '\t';
         print_vector(row);
+        std::cout << '\n';
     }
     std::cout << ']' << std::endl;
 }
@@ -49,14 +50,9 @@ int main()
         }
     }
 
-    
-
-    print_vector(vector);
-    print_matrix(matrix);
-
     print_vector(BozoSort(vector, true));
     print_vector(BozoSort(vector, false));
-    print_vector(BozoSort(matrix, true));
+    print_vector(BozoSort(matrix, true)); 
     print_vector(BozoSort(matrix, false));
     print_vector(BozoSort(vector[0], vector[1], vector[2], true));
     print_vector(BozoSort(vector[0], vector[1], vector[2], false));

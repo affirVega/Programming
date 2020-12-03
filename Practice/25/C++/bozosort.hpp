@@ -13,8 +13,9 @@
     vector_t BozoSort(matrix_t array, bool ascending);
     vector_t BozoSort(int a, int b, int c, bool ascending);
     */
-    bool IsSorted(vector_t &array, bool ascending = true)
+    bool IsSorted(const vector_t &array, bool ascending = true)
     {
+        //std::cout << "is sorted\n";
         size_t size = array.size();
         
         if (ascending)
@@ -41,29 +42,31 @@
         }
     }
 
-    vector_t BozoSort(vector_t &array, bool ascending = true)
+    vector_t BozoSort(const vector_t &array, bool ascending = true)
     {
+        //std::cout << "bozosort\n";
         std::srand(std::time(0));
 
-        vector_t result;
+        vector_t result = array;
+        //std::cout << "check size\n";
         if (array.size() < 2)
         {
             return result;
         }
 
-        size_t size = array.size();
-
+        size_t size = result.size();
         while(! IsSorted(result, ascending))
         {
+            //std::cout << "not sorted\n";
             int a = std::rand() % size;
             int b = std::rand() % size;
-            
-            std::swap(array[a], array[b]);
+            //std::cout << "swaping\n";
+            std::swap(result[a], result[b]);
         }
         return result;
     }
 
-    vector_t BozoSort(matrix_t &array, bool ascending = true)
+    vector_t BozoSort(const matrix_t &array, bool ascending = true)
     {
         vector_t result;
         for (vector_t row : array)
