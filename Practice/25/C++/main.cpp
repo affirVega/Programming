@@ -8,27 +8,17 @@ typedef std::vector<std::vector<int>> matrix_t;
 
 //using namespace BozoSort;
 
-void print_vector(vector_t array)
-{
-    std::cout << '[';
-    for (int i = 0; i < array.size()-1; ++i)
-    {
-        std::cout << array[i] << ", ";
-    }
-    std::cout << array[array.size()-1] << ']' << std::endl;
-}
+void print_vector(
+    vector_t vector,
+    const char * start = "",
+    const char * delim = " ",
+    const char * end = "\n");
 
-void print_matrix(matrix_t array)
-{
-    std::cout << '[' << '\n';
-    for (vector_t row : array)
-    {
-        std::cout << '\t';
-        print_vector(row);
-        std::cout << '\n';
-    }
-    std::cout << ']' << std::endl;
-}
+void print_matrix(
+    matrix_t matrix,
+    const char * start = "",
+    const char * delim = " ",
+    const char * end = "\n");
 
 int main()
 {
@@ -50,10 +40,42 @@ int main()
         }
     }
 
-    print_vector(BozoSort(vector, true));
-    print_vector(BozoSort(vector, false));
-    print_vector(BozoSort(matrix, true)); 
-    print_vector(BozoSort(matrix, false));
-    print_vector(BozoSort(vector[0], vector[1], vector[2], true));
-    print_vector(BozoSort(vector[0], vector[1], vector[2], false));
+    print_vector(BozoSort::BozoSort(vector, true));
+    print_vector(BozoSort::BozoSort(vector, false));
+    print_vector(BozoSort::BozoSort(matrix, true)); 
+    print_vector(BozoSort::BozoSort(matrix, false));
+    print_vector(BozoSort::BozoSort(vector[0], vector[1], vector[2], true));
+    print_vector(BozoSort::BozoSort(vector[0], vector[1], vector[2], false));
+}
+
+void print_vector(
+    vector_t vector,
+    const char * start,
+    const char * delim,
+    const char * end)
+{
+    std::cout << start;
+    for (int i = 0; i < vector.size()-1; ++i)
+    {
+        std::cout << vector[i] << delim;
+    }
+    std::cout << vector[vector.size()-1] << end << std::flush;
+}
+
+void print_matrix(
+    matrix_t matrix,
+    const char * start,
+    const char * delim,
+    const char * end)
+{
+    std::cout << start << '\n';
+
+    for (vector_t row : matrix)
+    {
+        std::cout << '\t';
+        print_vector(row, start, delim, end);
+        std::cout << '\n';
+    }
+
+    std::cout << end << std::flush;
 }

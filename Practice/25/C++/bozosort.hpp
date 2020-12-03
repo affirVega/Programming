@@ -3,26 +3,30 @@
 #include <ctime>
 #include <vector>
 
-//namespace BozoSort {
-    
+namespace BozoSort {
     typedef std::vector<int> vector_t;
     typedef std::vector<std::vector<int>> matrix_t;
-    /*
-    bool     IsSorted(vector_t array, bool ascending);
-    vector_t BozoSort(vector_t array, bool ascending);
-    vector_t BozoSort(matrix_t array, bool ascending);
-    vector_t BozoSort(int a, int b, int c, bool ascending);
-    */
-    bool IsSorted(const vector_t &array, bool ascending = true)
+    
+    bool     IsSorted(const vector_t &vector, bool ascending = true);
+    vector_t BozoSort(const vector_t &vector, bool ascending = true);
+    vector_t BozoSort(const matrix_t &matrix, bool ascending = true);
+    vector_t BozoSort(int a, int b, int c,   bool ascending = true);
+    
+    //-----------------------------------
+
+    //    Defenitions
+
+    //-----------------------------------
+    
+    bool IsSorted(const vector_t &vector, bool ascending)
     {
-        //std::cout << "is sorted\n";
-        size_t size = array.size();
+        size_t size = vector.size();
         
         if (ascending)
         {
             for (int i = 1; i < size; ++i)
             {
-                if (array[i-1] > array[i])
+                if (vector[i-1] > vector[i])
                 {
                     return false;
                 }
@@ -33,7 +37,7 @@
         {
             for (int i = 1; i < size; ++i)
             {
-                if (array[i-1] < array[i])
+                if (vector[i-1] < vector[i])
                 {
                     return false;
                 }
@@ -42,14 +46,12 @@
         }
     }
 
-    vector_t BozoSort(const vector_t &array, bool ascending = true)
+    vector_t BozoSort(const vector_t &vector, bool ascending)
     {
-        //std::cout << "bozosort\n";
         std::srand(std::time(0));
 
-        vector_t result = array;
-        //std::cout << "check size\n";
-        if (array.size() < 2)
+        vector_t result = vector;
+        if (vector.size() < 2)
         {
             return result;
         }
@@ -57,19 +59,17 @@
         size_t size = result.size();
         while(! IsSorted(result, ascending))
         {
-            //std::cout << "not sorted\n";
             int a = std::rand() % size;
             int b = std::rand() % size;
-            //std::cout << "swaping\n";
             std::swap(result[a], result[b]);
         }
         return result;
     }
 
-    vector_t BozoSort(const matrix_t &array, bool ascending = true)
+    vector_t BozoSort(const matrix_t &matrix, bool ascending)
     {
         vector_t result;
-        for (vector_t row : array)
+        for (vector_t row : matrix)
         {
             for (int elem : row)
             {
@@ -79,10 +79,9 @@
         return BozoSort(result, ascending);
     }
 
-    vector_t BozoSort(int a, int b, int c, bool ascending = true)
+    vector_t BozoSort(int a, int b, int c, bool ascending)
     {
         vector_t result = {a, b, c};
-        return BozoSort(result);
+        return BozoSort(result, ascending);
     }
-
-//}
+}
