@@ -15,6 +15,8 @@ std::string appid     = "4b4b143c5f50ea5d5810563a8346acc0";
 
 Client time_srv("http://worldtimeapi.org");
 
+json cache;
+
 // https://thispointer.com/find-and-replace-all-occurrences-of-a-sub-string-in-c/
 void findAndReplaceAll(std::string &data, std::string toSearch, std::string replaceStr) {
     size_t pos = data.find(toSearch);
@@ -45,6 +47,10 @@ json get_json() {
 }
 
 json get_cache() {
+    if (!cache.empty())
+    {
+        return cache;
+    }
 	json cache;
 	std::ifstream cache_file("cache.json");
     if (cache_file.is_open()) {
@@ -62,6 +68,7 @@ json get_cache() {
 }
 
 bool cache_json(json j) {
+    cache = j;
 	std::ofstream cache_file("cache.json");
 	if (cache_file.is_open()) {
 		cache_file << j;
