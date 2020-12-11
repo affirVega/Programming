@@ -8,6 +8,7 @@ using namespace std;
 #define println(A) cout<<A<<endl
 #define input(N) (print(N),cin>>temp,temp)
 #define vec vector<int64_t> vec
+#define len(P) P.size()
 
 // Как же я люблю программировать на Python++
 
@@ -23,20 +24,20 @@ int main()                                                                      
         cin >> value                                                            ;
         int j                                                                   ;
         
-        for j = 0; j < 5 and j < vec.size(); ++j                                ){
+        for j = 0; j < 5 and j < len(vec); ++j                                  ){
             if value > vec[j]                                                   ){
                 vec.insert(vec.begin() + j, value)                              ;
                 break                                                           ;}}
                 
-        if j == 5 or j == vec.size()                                            ){
+        if j == 5 or j == len(vec)                                              ){
             vec.push_back(value)                                                ;}
             
-        if vec.size() > 5                                                       ){
+        if len(vec) > 5                                                         ){
             vec.erase(vec.begin())                                              ;}
             
-        for int i = 0; i < vec.size(); ++i                                      ){
-            cout << vec[i] << ' '                                               ;}
+        for int i = 0; i < len(vec); ++i                                        ){
+            print(vec[i]); print(' ')                                           ;}
             
-        cout << endl                                                            ;}}
+        println(' ')                                                            ;}}
 
 
