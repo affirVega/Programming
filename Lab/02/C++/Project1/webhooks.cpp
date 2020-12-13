@@ -64,7 +64,9 @@ json get_config()
 		{
 			std::cout << "Ошибка: Файл " << fs::absolute(config_path) << " не существует." << std::endl;
 		}
-		return { "wehbooks", json::array() };
+		json return_json;
+		return_json["webhooks"] = json::array();
+		return return_json;
 	}
 	return config;
 }
@@ -77,8 +79,8 @@ void save_config(json config)
 	{
 		std::cout << "Инфо: Файл " << fs::absolute(config_path) << " не существует. Создаём новый..." << std::endl;
 	}
-	std::ofstream config_file(config_file_name);
 
+	std::ofstream config_file(config_file_name);
 	if (config_file.is_open())
 	{
 		std::cout << "Инфо: Пишем файл конфигурации..." << std::endl;

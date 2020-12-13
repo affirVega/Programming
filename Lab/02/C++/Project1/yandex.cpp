@@ -82,6 +82,9 @@ json help_state_buttons =
 };
 
 json get_config(); // webhooks.cpp
+void replace_all(std::string& data,
+	const std::string& to_replace,
+	const std::string& replace_with); // webhooks.cpp
 
 json gen_response(const std::string& text,
 	const std::string& tts,
@@ -372,30 +375,34 @@ void yandex_hook(const Request& req, Response& res)
 
 			for (std::string link : config["webhooks"])
 			{
-				std::cout << "link " << link << std::endl;
-				int index = link.find('/', static_cast<std::string>("https://").size());
+				// Либа не работает с https ссылками.
+				replace_all(link, "https://", "http://");
 
-				std::cout << (index == std::string::npos) << std::endl;
-				std::cout << (link.find("http://") == 0)  << std::endl;
-				std::cout << (link.find("https://") == 0) << std::endl;
-
-				if (index != -1)
+				// Если передали линк без '/' на конце, добавляем его
+				if (link.find("http://") != 0)
 				{
-					std::cout << link.substr(0, index).c_str() << std::endl;
-					std::cout << link.substr(index, link.size()).c_str() << std::endl;
+					std::cout << "bad link" << std::endl;
+					continue;
+				}
+				
+
+				// http://
+				// 1234567
+				const int http_protocol_size = 7;
+
+				// найти первую / после объявления протокола и "//"
+				int index = link.find('/', http_protocol_size);
+
+				if (index == std::string::npos) 
+				{
+					link.push_back('/');
 				}
 
-				if (index == std::string::npos) // || link.find("http://") == 0 || link.find("https://") == 0)
-				{
-					std::cout << "bad link " << link << std::endl;
-				}
-				else
-				{
-					std::cout << link.substr(0, index).c_str() << std::endl;
-					std::cout << link.substr(index, link.size()).c_str() << std::endl;
-					Client cli(link.substr(0, index).c_str());
-					cli.Post(link.substr(index, -1).c_str(), output.dump(2), "text/json; charset=UTF-8");
-				}
+				std::cout << link.substr(0, index) << std::endl;
+				std::cout << link.substr(index, std::string::npos).c_str() << std::endl;
+
+				Client cli(link.substr(0, index).c_str());
+				cli.Post(link.substr(index, std::string::npos).c_str(), output.dump(2), "application/json; charset=UTF-8");
 			}
 
 			(*cur_session).erase("cart");

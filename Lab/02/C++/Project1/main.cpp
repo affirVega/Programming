@@ -59,6 +59,7 @@ int main()
 		<< "Сервер откыт по адресу localhost:1234\n\n"
 		<< "Откройте http://localhost:1234/webhooks в веб-браузере, "
 		<< "чтобы получить доступ к панели управления веб-хуками.\n"
+		<< "Вебхук для яндекса http://localhost:1234/yandex_hook."
 		<< std::endl;
 
 	srv.listen("localhost", 1234);
