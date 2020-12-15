@@ -1,14 +1,10 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
-#include <filesystem>
 
 #include "include/cpp-httplib/httplib.h"
 #include "include/nlohmann/json.hpp"
 
 using json = nlohmann::json;
 using namespace httplib;
-namespace fs = std::filesystem;
 
 enum voice_mode
 {
@@ -114,6 +110,7 @@ json gen_response(const std::string& text,
 	else if (current_session != nullptr && (*current_session)["voice_mode"] == silent_mode)
 	{
 		response["response"]["buttons"].push_back(speak_mode_button);
+		response["response"]["tts"] = "sil <[500]>";
 	}
 	return response;
 }

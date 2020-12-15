@@ -4,18 +4,19 @@ CLANG=/usr/bin/clang++
 GPP=/usr/bin/g++
 
 OUT_FILE=server.out
+FLAGS="--std=c++17 -pipe -lpthread"
 
 if test -f "$CLANG"
 then
 	echo "Clang доступен..."
-	$CLANG --std=c++17 -pipe -lpthread *.cpp -o $OUT_FILE
+	$CLANG $FLAGS *.cpp -o $OUT_FILE
 
 	echo "Проверьте присутствие исполняемого файла $OUT_FILE"
 	echo ""
 elif test -f "$GPP"
 then
 	echo "g++ доступен..."
-	$GPP --std=c++17 -pipe -lpthread *.cpp -o $OUT_FILE
+	$GPP $FLAGS *.cpp -o $OUT_FILE
 
 	echo "Проверьте присутствие исполняемого файла $OUT_FILE"
 	echo ""
@@ -27,7 +28,7 @@ else
 		echo "$ ./build.sh /путь/к/компилятору"
 		echo ""
 	else
-		$1 --std=c++17 -pipe -lpthread *.cpp -o $OUT_FILE
+		$1 $FLAGS *.cpp -o $OUT_FILE
 	fi
 fi
 
