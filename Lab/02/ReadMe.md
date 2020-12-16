@@ -95,19 +95,19 @@
 
 Ссылка на файл excel:
 
-![doc/data.xlsx](doc/data.xlsx)
+[doc/data.xlsx](doc/data.xlsx)
 
 Ссылка на исходный код на C++:
 
-Инициализация сервера: ![main.cpp](C++/Project1/main.cpp)
+Инициализация сервера: [main.cpp](C++/Project1/main.cpp)
 
-Логика работы с яндекс диалогами: ![yandex.cpp](C++/Project1/yandex.cpp)
+Логика работы с яндекс диалогами: [yandex.cpp](C++/Project1/yandex.cpp)
 
-Логика работы с вебхуками и конфигурационными файлами: ![webhooks.cpp](C++/Project1/webhooks.cpp)
+Логика работы с вебхуками и конфигурационными файлами: [webhooks.cpp](C++/Project1/webhooks.cpp)
 
 Ссылка на исходный код на Python:
 
-![script.py](Python/script.py)
+[script.py](Python/script.py)
 
 ## Вывод
 

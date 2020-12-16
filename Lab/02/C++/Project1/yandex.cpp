@@ -388,15 +388,16 @@ void yandex_hook(const Request& req, Response& res)
 				const int http_protocol_size = 7;
 
 				// найти первую / после объявления протокола и "//"
-				int index = link.find('/', http_protocol_size);
 
+				int index = link.find('/', http_protocol_size);
 				if (index == std::string::npos) 
 				{
 					link.push_back('/');
+					index = link.length() - 1;
 				}
 
-				std::cout << link.substr(0, index) << std::endl;
-				std::cout << link.substr(index, std::string::npos).c_str() << std::endl;
+				std::cout << "test: " << link.substr(0, index) << std::endl;
+				std::cout << "2nd : " << link.substr(index, std::string::npos).c_str() << std::endl;
 
 				Client cli(link.substr(0, index).c_str());
 				cli.Post(link.substr(index, std::string::npos).c_str(), output.dump(2), "application/json; charset=UTF-8");
