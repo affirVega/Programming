@@ -29,6 +29,21 @@ struct Passenger {
 	uint8_t 	embarked;
 };
 
+struct Passenger_str {
+	std::string name;
+	std::string cabin;
+	std::string ticket;	 	// ticket number
+	std::string fare;
+	std::string id;
+	std::string survival; 	// false = no
+	std::string pclass;		// '1' = 1st, 2nd, 3rd
+	std::string sex;	   	// m - male, f - female
+	std::string age;	   	// 0 - 255
+	std::string sibsp;	 	// number of sublings/spouses aboard
+	std::string parch;	 	// number of parents/children aboard
+	std::string embarked;
+};
+
 std::vector<std::vector<std::string>> parse_cvs(
 		std::istream& out,
 		char end_ch='\r',
@@ -95,18 +110,18 @@ std::istream& operator>> (std::istream& stream, std::vector<Passenger>& vec) {
 	for (auto row : matrix) {
 		Passenger p;
 
-		p.id	   = std::stoi(row[0]);
-		p.survival = std::stoi(row[1]);
-		p.pclass   = std::stoi(row[2]);
-		p.name	 = row[3];
-		p.sex	  = row[4] == "male" ? 'm' : 'f';
-		p.age	  = row[5] == "" ? 255 : std::stof(row[5]);
-		p.sibsp	= std::stoi(row[6]);
-		p.parch	= std::stoi(row[7]);
-		p.ticket   = row[8];
-		p.fare	 = std::stof(row[9]);
-		p.cabin	= row[10];
-		p.embarked = row[11][0];
+		p.id	   	= std::stoi(row[0]);
+		p.survival 	= std::stoi(row[1]);
+		p.pclass   	= std::stoi(row[2]);
+		p.name	 	= row[3];
+		p.sex	  	= row[4] == "male" ? 'm' : 'f';
+		p.age	  	= row[5] == "" ? 0 : std::stof(row[5]);
+		p.sibsp		= std::stoi(row[6]);
+		p.parch		= std::stoi(row[7]);
+		p.ticket   	= row[8];
+		p.fare	 	= std::stof(row[9]);
+		p.cabin		= row[10];
+		p.embarked 	= row[11][0];
 		
 		vec.push_back(p);
 	}
@@ -125,7 +140,7 @@ std::ostream& operator<< (std::ostream& stream, std::vector<Passenger>& vec) {
 			<< int(pass.pclass) << sep
 			<< '"' << name << '"' << sep
 			<< ((pass.sex == 'm') ? "male" : "female") << sep
-			<< ((pass.age == 255) ? "" : std::to_string(pass.age)) << sep
+			<< int(pass.age) << sep
 			<< int(pass.sibsp) << sep
 			<< int(pass.parch) << sep
 			<< pass.ticket << sep
