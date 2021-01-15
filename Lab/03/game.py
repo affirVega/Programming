@@ -11,6 +11,7 @@ _assets = {}
 assets = {}
 ball_by_index = []
 game_over = False
+game_over_label: Label = None
 
 class Cell:
     uniqid: int = -1
@@ -59,21 +60,21 @@ SelectedCell: Cell = None
 def load_assets():
     global _assets, assets, ball_by_index
     _assets.update({
-        "cell" : Image.open("cell-bgr.png").convert('RGBA'),
-        "page" : Image.open("page-bgr.png").convert('RGBA'),
+        "cell" : Image.open("assets/cell-bgr.png").convert('RGBA'),
+        "page" : Image.open("assets/page-bgr.png").convert('RGBA'),
     })
     _assets.update({
         "cell_dark" : _assets["cell"].crop( (2, 1, 67, 66) ),
         "cell_light" : _assets["cell"].crop( (2, 70, 67, 135) ),
     })
     _assets_balls = {
-        "pink"   : Image.open("ball-pink.png").convert('RGBA'),
-        "red"    : Image.open("ball-red.png").convert('RGBA'),
-        "yellow" : Image.open("ball-yellow.png").convert('RGBA'),  
-        "green"  : Image.open("ball-green.png").convert('RGBA'),
-        "aqua"   : Image.open("ball-aqua.png").convert('RGBA'),
-        "blue"   : Image.open("ball-blue.png").convert('RGBA'),
-        "violet" : Image.open("ball-violet.png").convert('RGBA'),
+        "pink"   : Image.open("assets/ball-pink.png").convert('RGBA'),
+        "red"    : Image.open("assets/ball-red.png").convert('RGBA'),
+        "yellow" : Image.open("assets/ball-yellow.png").convert('RGBA'),  
+        "green"  : Image.open("assets/ball-green.png").convert('RGBA'),
+        "aqua"   : Image.open("assets/ball-aqua.png").convert('RGBA'),
+        "blue"   : Image.open("assets/ball-blue.png").convert('RGBA'),
+        "violet" : Image.open("assets/ball-violet.png").convert('RGBA'),
     }
     for k, v in _assets_balls.items():
         for i in range(7):
@@ -409,6 +410,8 @@ def make_move(event=None):
     SelectedCell = None
 
 def new_game(event=None):
+    global game_over_label
+    global game_over
     game_over = False
 
     for row in range(N):
@@ -420,7 +423,10 @@ def new_game(event=None):
 
     update_score(canvas, reset=True)
     make_move()
-    game_over_label.destroy()
+    if game_over_label != None:
+        game_over_label.destroy()
+        root.update()
+        game_over_label = None
 
 if __name__ == '__main__':
     load_assets()
@@ -445,9 +451,9 @@ if __name__ == '__main__':
         while True:
             root.update()
             if game_over:
-                game_over_label = Label(root, font=('Arial', 20), text='игра окончена', fg='red', bg='black')
-                game_over_label.place(x=root.winfo_width()//2, y=root.winfo_height()//2)
-                game_over = False
+                if game_over_label == None:
+                    game_over_label = Label(root, font=('Arial', 20), text='игра окончена', fg='white', bg='#666666')
+                    game_over_label.place(x=root.winfo_width()//2 + 180, y=root.winfo_height()//2 + 50)
 
             
     except TclError as e:

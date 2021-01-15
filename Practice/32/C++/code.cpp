@@ -152,12 +152,12 @@ std::ostream& operator<< (std::ostream& stream, std::vector<Passenger>& vec) {
 	return stream;
 }
 void sort(std::vector<Passenger*>& vec) {
-	std::sort(vec.begin(), vec.end(), 
-		[](const Passenger* a, const Passenger* b)
-		{
-			return a->age < b->age;
+	for (int i = 0; i < vec.size()-1; ++i) {
+		for (int j = vec.size()-1; j > i; --j) {
+			if (vec[j]->age < vec[j-1]->age)
+				std::swap(*vec[j], *vec[j-1]);
 		}
-	);
+	}
 }
 
 int main()
@@ -170,13 +170,17 @@ int main()
 	file >> passengers;
 	std::vector<Passenger*> passengers_ptr;
 	
-	for (auto& elem : passengers) passengers_ptr.push_back(&elem);
+	for (auto& elem : passengers) 
+		if (elem.pclass == 1 and elem.sex == 'f' and elem.survival)
+			passengers_ptr.push_back(&elem);
 	
 	sort(passengers_ptr);
 	
+	outfile << passengers;
+
 	std::vector<Passenger> newvec;
 	for (auto elem : passengers_ptr) newvec.push_back(*elem);
-
-	outfile << newvec;
+	std::ofstream outfile2("out_woman.csv");
+	outfile2 << newvec;
 	return 0;
 }
