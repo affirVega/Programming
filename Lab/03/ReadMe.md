@@ -77,6 +77,7 @@
 
 <details>
 <summary>Спойлер!</summary>
+    
 ```python
 import random
 from tkinter import Tk, Button, Canvas, NW, W, TclError, Label
@@ -542,8 +543,8 @@ if __name__ == '__main__':
         print('Error:', e)
         exit()
 ```
+
 </details>
 
 ## Вывод
-
 Я продвинулся в своём знании Python и Tkinter, научился работать с объектами Canvas, Label, Button, создании классов и созданию простейших игр.
