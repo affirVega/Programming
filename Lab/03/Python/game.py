@@ -320,23 +320,23 @@ def is_accessable(fromx, fromy, tox, toy):
 def clear_list(list_):
     deleted_some = False
     for col in list_:
-        count = 0
+        count = 1
         for elem in range(len(col)-1):
-            if col[elem].color == col[elem+1].color and col[elem].variant != -1:
+            if col[elem].color == col[elem+1].color and col[elem].variant != -1 and count < 5:
                 count += 1
             else:
-                if count >= 4:
+                if count == 5:
                     deleted_some = True
-                    for i in range(count+1):
+                    for i in range(count):
                         c = col[elem-i]
                         c.color = -1
                         c.variant = -1
                         c.update_cell()
                         update_score(canvas, inc=2)
                 count = 0
-        if count >= 4:
+        if count == 5:
             deleted_some = True
-            for i in range(count+1):
+            for i in range(count):
                 c = col[elem-i]
                 c.color = -1
                 c.variant = -1
