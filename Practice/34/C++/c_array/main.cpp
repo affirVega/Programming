@@ -80,7 +80,7 @@ void destroy(int *&arr)
     }
 }
 
-int main(int argc, char* argv[], char* envp[])
+int main(int argc, char* argv[])
 {
     int len, start, inc;
     puts("Enter length, begin value and increment.");

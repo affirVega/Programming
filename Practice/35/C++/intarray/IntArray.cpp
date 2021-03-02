@@ -61,6 +61,11 @@ void resize(IntArray& arr, int newSize)
     {
         // create new array and copy data
         int *newArray = new int[newSize];
+        if (!newArray)
+        {
+            fprintf(stderr, "Could not create array with length %d.\n", newSize);
+            return;
+        }
         memcpy(newArray, arr.data, sizeof(int)*arr.size);
 
         // initialize rest of the memory with 0
@@ -84,6 +89,11 @@ void resize(IntArray& arr, int newSize)
         // There is no more information that it's there.
         // That's a memory leak! That's why we create new array
         int *newArray = new int[newSize];
+        if (!newArray)
+        {
+            fprintf(stderr, "Could not create array with length %d.\n", newSize);
+            return;
+        }
         memcpy(newArray, arr.data, sizeof(int)*newSize);
 
         // replace old array with new one

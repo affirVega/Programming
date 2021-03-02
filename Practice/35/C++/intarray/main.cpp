@@ -15,6 +15,8 @@ int main(int argc, char *argv[])
     print(arr);
 
     resize(arr, 10);
+    print(arr);
+
     destroy(arr);
 }
 
