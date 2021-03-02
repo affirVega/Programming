@@ -1,24 +1,23 @@
 #include <cstdio> // понты
 
-int *create(int len, int start, int inc)
+void create(int *&arr, int len, int start = 0, int inc = 0)
 {
     if (len < 0)
     {
         fprintf(stderr, "Cannot create arr with length %d.\n", len);
-        return nullptr;
+        return;
     }
-    int *arr = new int[len];
+    arr = new int[len];
     if (!arr)
     {
         fprintf(stderr, "Could not create array with length %d.\n", len);
-        return nullptr;
+        return;
     }
     for (int i = 0; i < len; ++i)
     {
         arr[i] = start;
         start += inc;
     }
-    return arr;
 }
 
 int *sort(int *arr, int len)
@@ -72,13 +71,24 @@ int *print(int *arr, int len)
     return arr;
 }
 
+void destroy(int *&arr)
+{
+    if (!arr)
+    {
+        delete[] arr;
+        arr = nullptr;
+    }
+}
+
 int main(int argc, char* argv[], char* envp[])
 {
     int len, start, inc;
     puts("Enter length, begin value and increment.");
     scanf("%d%d%d", &len, &start, &inc);
-    int *arr = create(len, start, inc);
+    int *arr;
+    create(arr, len, start, inc);
     sort(arr, len);
     print(arr, len);
+    destroy(arr);
     return 0;
 }
