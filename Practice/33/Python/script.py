@@ -1,6 +1,6 @@
 import sys
 
-def create(length, start, inc):
+def create(length, start = 0, inc = 0):
     if length < 0:
         print('Cannot create array with length ', length, '.', sep='', file=sys.stderr)
         return [];

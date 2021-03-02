@@ -1,6 +1,6 @@
 #include <cstdio> // понты
 
-int *create(int len, int start, int inc)
+int *create(int len, int start = 0, int inc = 0)
 {
     if (len < 0)
     {
@@ -72,13 +72,14 @@ int *print(int *arr, int len)
     return arr;
 }
 
-int main(int argc, char* argv[], char* envp[])
+int main(int argc, char* argv[])
 {
     int len, start, inc;
     puts("Enter length, begin value and increment.");
-    scanf("%d%d%d", &len, &start, &inc);
+    scanf("%d %d %d", &len, &start, &inc);
     int *arr = create(len, start, inc);
     sort(arr, len);
     print(arr, len);
+    delete[] arr;
     return 0;
 }
