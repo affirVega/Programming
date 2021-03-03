@@ -57,7 +57,13 @@ void resize(IntArray& arr, int newSize)
     {
         return;
     }
-    if (newSize > arr.size)
+
+    if (newSize == arr.size)
+    {
+        // do nothing
+        return;
+    }
+    else if (newSize > arr.size)
     {
         // create new array and copy data
         int *newArray = new int[newSize];
@@ -77,16 +83,11 @@ void resize(IntArray& arr, int newSize)
         arr.data = newArray;
         arr.size = newSize;
     }
-    else if (newSize == arr.size)
-    {
-        // do nothing
-        return;
-    }
     else // newSize < arr.size
     {
         // We don't just change the size because
         // the data that was cut off will be lost!
-        // There is no more information that it's there.
+        // Will be no more information that cut off data is there.
         // That's a memory leak! That's why we create new array
         int *newArray = new int[newSize];
         if (!newArray)

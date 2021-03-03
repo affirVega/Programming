@@ -1,13 +1,13 @@
 #include <cstdio> // понты
 
-void create(int *&arr, int len, int start = 0, int inc = 0)
+void create(int **arr, int len, int start = 0, int inc = 0)
 {
     if (len < 0)
     {
         fprintf(stderr, "Cannot create arr with length %d.\n", len);
         return;
     }
-    arr = new int[len];
+    *arr = new int[len];
     if (!arr)
     {
         fprintf(stderr, "Could not create array with length %d.\n", len);
@@ -15,7 +15,7 @@ void create(int *&arr, int len, int start = 0, int inc = 0)
     }
     for (int i = 0; i < len; ++i)
     {
-        arr[i] = start;
+        (*arr)[i] = start;
         start += inc;
     }
 }
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
     puts("Enter length, begin value and increment.");
     scanf("%d%d%d", &len, &start, &inc);
     int *arr;
-    create(arr, len, start, inc);
+    create(&arr, len, start, inc);
     sort(arr, len);
     print(arr, len);
     destroy(arr);
