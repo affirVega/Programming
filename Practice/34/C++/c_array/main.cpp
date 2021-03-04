@@ -2,7 +2,7 @@
 
 void create(int **arr, int len, int start = 0, int inc = 0)
 {
-    if (len < 0)
+    if (len <= 0)
     {
         fprintf(stderr, "Cannot create arr with length %d.\n", len);
         return;
@@ -22,7 +22,7 @@ void create(int **arr, int len, int start = 0, int inc = 0)
 
 int *sort(int *arr, int len)
 {
-    if (len < 0)
+    if (len <= 0)
     {
         fprintf(stderr, "Cannot sort array with length %d.\n", len);
         return arr;
@@ -32,23 +32,30 @@ int *sort(int *arr, int len)
         fprintf(stderr, "Cannot sort nullptr array.\n");
         return arr;
     }
+
+    /* https://en.wikipedia.org/wiki/Insertion_sort#Algorithm */
+    int value, j;
     for (int i = 1; i < len; ++i)
     {
-        for (int j = i; j > 0; --j)
+        value = arr[i];
+        j = i-1;
+        while (j >= 0 && arr[j] > value)
         {
-            if (arr[j] < arr[j-1])
-            {
-                int temp = arr[j];
-                arr[j] = arr[j-1];
-                arr[j-1] = temp;
-            }
+            arr[j+1] = arr[j];
+            --j;
         }
+        arr[j+1] = value;
     }
     return arr;
 }
 
 int *print(int *arr, int len)
 {
+    if (len == 0)
+    {
+        printf("[]\n");
+        return arr;
+    }
     if (len < 0)
     {
         fprintf(stderr, "Cannot print array with length %d.\n", len);
@@ -59,11 +66,6 @@ int *print(int *arr, int len)
         fprintf(stderr, "Cannot print nullptr array.\n");
         return arr;
     }
-    if (len == 0)
-    {
-        printf("[]\n");
-        return arr;
-    }
     printf("[%d", *arr);
     for (int i = 1; i < len; ++i)
         printf(", %d", arr[i]);
@@ -71,12 +73,12 @@ int *print(int *arr, int len)
     return arr;
 }
 
-void destroy(int *&arr)
+void destroy(int **arr)
 {
-    if (!arr)
+    if (!*arr)
     {
-        delete[] arr;
-        arr = nullptr;
+        delete[] *arr;
+        *arr = nullptr;
     }
 }
 
@@ -89,6 +91,6 @@ int main(int argc, char* argv[])
     create(&arr, len, start, inc);
     sort(arr, len);
     print(arr, len);
-    destroy(arr);
+    destroy(&arr);
     return 0;
 }

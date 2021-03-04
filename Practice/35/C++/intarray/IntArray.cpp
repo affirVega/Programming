@@ -5,7 +5,7 @@
 
 void create(IntArray& arr, int size)
 {
-    if (size < 0)
+    if (size <= 0)
     {
         fprintf(stderr, "Cannot create arr with length %d.\n", size);
         return;
@@ -25,7 +25,7 @@ void create(IntArray* arr, int size)
 
 int get(IntArray& arr, int index)
 {
-    if (index < 0 || index > arr.size)
+    if (index < 0 || index >= arr.size)
     {
         fprintf(stderr, "Index out of range! Size %d, index %d.\n", arr.size, index);
         exit(1);
@@ -39,7 +39,7 @@ int get(IntArray* arr, int index)
 
 void set(IntArray& arr, int index, int value)
 {
-    if (index < 0 || index > arr.size)
+    if (index < 0 || index >= arr.size)
     {
         fprintf(stderr, "Index out of range! Size %d, index %d.\n", arr.size, index);
         exit(1);
@@ -53,7 +53,7 @@ void set(IntArray* arr, int index, int value)
 
 void resize(IntArray& arr, int newSize)
 {
-    if (newSize < 0)
+    if (newSize <= 0)
     {
         return;
     }
@@ -110,8 +110,11 @@ void resize(IntArray* arr, int newSize)
 
 void destroy(IntArray& arr)
 {
-    delete[] arr.data;
-    arr.data = nullptr;
+    if (!arr.data)
+    {
+        delete[] arr.data;
+        arr.data = nullptr;
+    }
     arr.size = 0;
 }
 void destroy(IntArray* arr)
