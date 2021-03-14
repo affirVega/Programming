@@ -1,4 +1,5 @@
 import sys
+import builtins
 
 def create(length, start = 0, inc = 0):
     if length < 0:
@@ -16,24 +17,24 @@ def sort(array, length):
                 array[j], array[j-1] = array[j-1], array[j]
     return array
 
-def myprint(array, length):
+def print(array, length):
     if length < 0:
-        print('Cannot sort array with length ', length, '.', sep='', file=sys.stderr)
+        builtins.print('Cannot sort array with length ', length, '.', sep='', file=sys.stderr)
         return array;
     if length == 0:
-        print('[]')
+        builtins.print('[]')
         return array;
-    print('[', array[0], sep='', end='')
+    builtins.print('[', array[0], sep='', end='')
     for i in range(1, length):
-        print(', ', array[i], sep='', end='')
-    print(']')
+        builtins.print(', ', array[i], sep='', end='')
+    builtins.print(']')
     return array
 
-print('Enter length, begin value and increment');
+builtins.print('Enter length, begin value and increment');
 length = int(input())
 start = int(input())
 inc = int(input())
 arr = create(length, start, inc)
 sort(arr, length)
-myprint(arr, length)
+print(arr, length)
 
