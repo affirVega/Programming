@@ -4,7 +4,6 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
-#include <exception>
 
 const auto PI = 3.141592653589793;
 
