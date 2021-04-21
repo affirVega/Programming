@@ -62,7 +62,7 @@ QByteArray readBytes(const QImage& img, size_t begin, size_t length) {
     size_t end = (begin + length) * 8;
 
 #ifndef NDEBUG
-    if (static_cast<size_t>(img.width() * img.height() * 3) <= end)
+    if (static_cast<size_t>(img.width() * img.height() * 8 * 3) <= end)
         throw std::out_of_range("попытка прочитать биты вне картинки");
 #endif
 
@@ -82,7 +82,7 @@ void writeBytes(QImage& img, size_t begin, QByteArray& byteArray) {
     size_t end = (begin + byteArray.size()) * 8;
 
 #ifndef NDEBUG
-    if (static_cast<size_t>(img.width() * img.height() * 3) <= end)
+    if (static_cast<size_t>(img.width() * img.height() * 8 * 3) <= end)
         throw std::out_of_range("попытка записать биты вне картинки");
 #endif
 
