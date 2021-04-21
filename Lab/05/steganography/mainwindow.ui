@@ -58,7 +58,7 @@
        </sizepolicy>
       </property>
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#999999;&quot;&gt;[Тут будут системные сообщения]&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>Тут будут системные сообщения</string>
       </property>
       <property name="scaledContents">
        <bool>false</bool>
