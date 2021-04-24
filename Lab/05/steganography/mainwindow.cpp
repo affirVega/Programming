@@ -26,7 +26,7 @@ void setBit(QImage &img, int index, bool val) {
         img.setPixel(x, y, (img.pixel(x, y) & ~0x010000) | (val << 16));
     case 1:
         img.setPixel(x, y, (img.pixel(x, y) & ~0x000100) | (val << 8));
-    case 2:
+    default:
         img.setPixel(x, y, (img.pixel(x, y) & ~0x000001) | val);
     }
 }
@@ -48,7 +48,7 @@ bool getBit(const QImage &img, int index) {
         return (img.pixel(x, y) >> 16) & 1;
     case 1:
         return (img.pixel(x, y) >> 8) & 1;
-    case 2:
+    default:
         return img.pixel(x, y) & 1;
     }
 
@@ -130,7 +130,7 @@ void MainWindow::loadImage()
 
     // каждый пиксель может хранить информацию в 3х каналах RGB
     // часть размера картинки уйдёт на запись маркера и размера сообщения
-    imageCapacity = img.width() * img.height() * 3 - marker.size() - messageInfoLength;
+    imageCapacity = (img.width() * img.height() * 3) / 8 - marker.size() - messageInfoLength;
 
     showMessage(tr("Изображение успешно загружено"));
     imageLoaded = true;
